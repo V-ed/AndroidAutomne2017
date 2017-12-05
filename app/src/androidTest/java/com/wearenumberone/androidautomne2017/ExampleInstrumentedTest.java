@@ -1,4 +1,4 @@
-package com.wearenumberone.projetsynthese;
+package com.wearenumberone.androidautomne2017;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.wearenumberone.projetsynthese", appContext.getPackageName());
+        assertEquals("com.wearenumberone.androidautomne2017", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.wearenumberone.projetsynthese;
+package com.wearenumberone.androidautomne2017;
 
 import org.junit.Test;
 
