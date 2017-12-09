@@ -10,7 +10,23 @@ import java.util.Arrays;
 public class Table {
 
     public enum Type {
-        INTEGER, TEXT, DATE
+        INT("INTEGER"),
+        TEXT("TEXT"),
+        DATE("DATE");
+
+        private final String name;
+
+        Type(String s) {
+            name = s;
+        }
+
+        public boolean equalsName(String otherName) {
+            return name.equals(otherName);
+        }
+
+        public String toString() {
+            return this.name;
+        }
     }
 
     public class Column {
@@ -38,7 +54,7 @@ public class Table {
 
         this.columns = columns;
 
-        Column idColumn = new Column("id", Type.INTEGER);
+        Column idColumn = new Column("id", Type.INT);
         this.columns.add(0, idColumn);
 
     }
@@ -48,9 +64,14 @@ public class Table {
     }
 
     protected Table(String tableName, Object[][] rawColumns) throws IllegalArgumentException, ClassCastException {
-        this(tableName, new ArrayList<Column>());
+
+        this.tableName = tableName;
 
         this.columns = processRawColumns(rawColumns);
+
+        Column idColumn = new Column("id", Type.INT);
+        this.columns.add(0, idColumn);
+
     }
 
     private ArrayList<Column> processRawColumns(Object[][] rawColumns) throws IllegalArgumentException, ClassCastException {
