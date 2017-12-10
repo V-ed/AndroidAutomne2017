@@ -20,10 +20,14 @@ public class VSQLiteDatabase extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
 
-    public VSQLiteDatabase(Context context, SQLiteDatabase.CursorFactory factory, Table... tables) {
+    public VSQLiteDatabase(Context context, SQLiteDatabase.CursorFactory factory, ArrayList<Table> tables) {
         super(context, NOM_BD, factory, VERSION);
 
-        this.tables = new ArrayList<>(Arrays.asList(tables));
+        this.tables = tables;
+    }
+
+    public VSQLiteDatabase(Context context, SQLiteDatabase.CursorFactory factory, Table... tables) {
+        this(context, factory, new ArrayList<>(Arrays.asList(tables)));
     }
 
     @Override
