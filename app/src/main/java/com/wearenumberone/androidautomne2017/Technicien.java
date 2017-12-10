@@ -3,19 +3,29 @@ package com.wearenumberone.androidautomne2017;
 import java.io.Serializable;
 
 /**
- * Created by 201412728 on 2017-12-05.
+ * Created by V-ed on 2017-12-10.
  */
 
-public class User implements Serializable {
+public class Technicien implements Serializable {
 
+    private String name;
     private String email;
     private String password;
     private String telephone;
 
-    public User(String email, String password, String telephone) {
+    public Technicien(String name, String email, String password, String telephone) {
+        this.name = name;
         this.email = email;
         this.password = password;
         this.telephone = telephone;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -44,7 +54,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Email =  " + getEmail() + "\n" + "Password = " + getPassword() + "\n" + "Telephone = " + getTelephone();
+        return "Nom = " + getName() + "\n" + "Email =  " + getEmail() + "\n" + "Password = " + getPassword() + "\n" + "Telephone = " + getTelephone();
     }
 
 }
