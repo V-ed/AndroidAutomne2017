@@ -5,14 +5,14 @@ import android.database.Cursor;
 import java.util.ArrayList;
 
 /**
- * Created by V-ed on 2017-12-09.
+ * Created by V-ed on 2017-12-10.
  */
 
-public class TableUsers extends Table<User> {
+public class TableTechs extends Table<Technicien> {
 
-    public static final String TABLE_NAME = "users";
+    public static final String TABLE_NAME = "techniciens";
 
-    public TableUsers() {
+    public TableTechs(){
         super();
     }
 
@@ -25,6 +25,7 @@ public class TableUsers extends Table<User> {
     protected Column[] getRawColumns() {
 
         Column[] columns = {
+                new Column("name", Column.Type.TEXT),
                 new Column("email", Column.Type.TEXT),
                 new Column("password", Column.Type.TEXT),
                 new Column("telephone", Column.Type.TEXT),
@@ -35,26 +36,27 @@ public class TableUsers extends Table<User> {
     }
 
     @Override
-    protected ArrayList<User> convertResultSet(Cursor c) {
+    protected ArrayList<Technicien> convertResultSet(Cursor c) {
 
-        ArrayList<User> listUsers = new ArrayList<>();
+        ArrayList<Technicien> listTechs = new ArrayList<>();
         while (c.moveToNext()) {
 
-            User user = new User(c.getString(1), c.getString(2), c.getString(3));
+            Technicien tech = new Technicien(c.getString(1), c.getString(2), c.getString(3), c.getString(4));
 
-            listUsers.add(user);
+            listTechs.add(tech);
 
         }
         c.close();
 
-        return listUsers;
+        return listTechs;
 
     }
 
     @Override
-    public Object[] convertEntity(User entity) {
+    public Object[] convertEntity(Technicien entity) {
 
         Object[] values = {
+                entity.getName(),
                 entity.getEmail(),
                 entity.getPassword(),
                 entity.getTelephone()
