@@ -6,8 +6,8 @@ package com.wearenumberone.androidautomne2017;
 
 public class TableUsers extends Table {
 
-    public TableUsers() {
-        super();
+    public TableUsers(VSQLiteDatabase db) {
+        super(db);
     }
 
     @Override
@@ -16,7 +16,7 @@ public class TableUsers extends Table {
     }
 
     @Override
-    protected Column[] getColumns() {
+    protected Column[] getRawColumns() {
 
         Column[] columns = {
                 new Column("email", Column.Type.TEXT),

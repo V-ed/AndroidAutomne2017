@@ -1,5 +1,7 @@
 package com.wearenumberone.androidautomne2017;
 
+import android.content.ContentValues;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +16,7 @@ public abstract class Table implements Serializable {
 
         protected enum Type {
             INT("INTEGER"),
-            TEXT("TEXT"),
-            DATE("DATE");
+            TEXT("TEXT");
 
             private final String name;
 
@@ -49,9 +50,13 @@ public abstract class Table implements Serializable {
 
     private ArrayList<Column> columns;
 
-    protected Table() {
+    private VSQLiteDatabase db;
 
-        this.initializeTable(this.getColumns());
+    protected Table(VSQLiteDatabase db) {
+
+        this.db = db;
+
+        this.initializeTable(this.getRawColumns());
 
     }
 
@@ -73,6 +78,17 @@ public abstract class Table implements Serializable {
             this.columns.add(0, idColumn);
         }
 
+    }
+
+    protected VSQLiteDatabase getDatabase(){
+        return this.db;
+    }
+    protected VSQLiteDatabase getDb(){
+        return this.getDatabase();
+    }
+
+    public ArrayList<Column> getColumns(){
+        return this.columns;
     }
 
     public String getTableCreationScript() {
@@ -105,8 +121,34 @@ public abstract class Table implements Serializable {
 
     }
 
+    protected long addObject(Object... values) {
+
+        if (columns.size() != values.length)
+            throw new IllegalArgumentException("The number of values entered to add an object in the class "
+                    + this.getClass().getSimpleName()
+                    + " does not equals to the number of columns (there should be "
+                    + columns.size()
+                    + " values passed as parameter).");
+
+        ContentValues content = new ContentValues();
+
+        for (int i = 0; i < columns.size(); i++) {
+
+            Object value = values[i];
+
+            if (value instanceof String)
+                content.put(columns.get(i).name, (String) values[i]);
+            else if (value instanceof Integer)
+                content.put(columns.get(i).name, (Integer) values[i]);
+
+        }
+
+        return db.insertInto(this, content);
+
+    }
+
     public abstract String getTableName();
 
-    protected abstract Column[] getColumns();
+    protected abstract Column[] getRawColumns();
 
 }
