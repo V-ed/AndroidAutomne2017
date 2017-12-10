@@ -13,12 +13,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Table[] tables = {
-                new TableUsers()
+                new TableUsers(),
+                new TableTechs()
         };
 
         VSQLiteDatabase db = new VSQLiteDatabase(this, tables);
 
         db.table(TableUsers.TABLE_NAME).insertEntity(new User("test@gmail.com", "lol", "234-567-7890"));
+        db.table(TableTechs.TABLE_NAME).insertEntity(new Technicien("Bob", "bob@gmail.com", "password", "123-456-7890"));
 
         TextView test = findViewById(R.id.test);
 
