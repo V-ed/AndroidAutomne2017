@@ -1,5 +1,6 @@
 package com.wearenumberone.androidautomne2017;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,29 +8,30 @@ import java.util.Arrays;
  * Created by V-ed on 2017-12-08.
  */
 
-public class Table {
+public abstract class Table implements Serializable {
 
-    public enum Type {
-        INT("INTEGER"),
-        TEXT("TEXT"),
-        DATE("DATE");
+    protected static class Column {
 
-        private final String name;
+        protected enum Type {
+            INT("INTEGER"),
+            TEXT("TEXT"),
+            DATE("DATE");
 
-        Type(String s) {
-            name = s;
+            private final String name;
+
+            Type(String s) {
+                name = s;
+            }
+
+            public boolean equalsName(String otherName) {
+                return name.equals(otherName);
+            }
+
+            public String toString() {
+                return this.name;
+            }
         }
 
-        public boolean equalsName(String otherName) {
-            return name.equals(otherName);
-        }
-
-        public String toString() {
-            return this.name;
-        }
-    }
-
-    public class Column {
         String name;
         Type type;
         boolean notNull;
@@ -45,69 +47,32 @@ public class Table {
         }
     }
 
-    private String tableName;
     private ArrayList<Column> columns;
 
-    protected Table(String tableName, ArrayList<Column> columns) {
+    protected Table() {
 
-        this.tableName = tableName;
-
-        this.columns = columns;
-
-        Column idColumn = new Column("id", Type.INT);
-        this.columns.add(0, idColumn);
+        this.initializeTable(this.getColumns());
 
     }
 
-    protected Table(String tableName, Column... columns) {
-        this(tableName, new ArrayList<>(Arrays.asList(columns)));
-    }
+    private void initializeTable(Column... columns) {
 
-    protected Table(String tableName, Object[][] rawColumns) throws IllegalArgumentException, ClassCastException {
+        this.columns = new ArrayList<>(Arrays.asList(columns));
 
-        this.tableName = tableName;
+        boolean canAddDefaultId = true;
 
-        this.columns = processRawColumns(rawColumns);
+        try {
+            Column firstColumn = columns[0];
 
-        Column idColumn = new Column("id", Type.INT);
-        this.columns.add(0, idColumn);
-
-    }
-
-    private ArrayList<Column> processRawColumns(Object[][] rawColumns) throws IllegalArgumentException, ClassCastException {
-        for (int i = 0; i < rawColumns.length; i++) {
-            if (rawColumns[i].length < 2 || rawColumns[i].length > 3) {
-                throw new IllegalArgumentException("Raw columns must have between 2 or 3 values : First being the column name, second being it's type and an optional third for removing the non null default behavior.");
-            }
+            canAddDefaultId = !firstColumn.name.matches("^id.*");
+        } catch (Exception e) {
         }
 
-        ArrayList<Column> processedColumns = new ArrayList<>();
-
-        for (int i = 0; i < rawColumns.length; i++) {
-
-            Column newColumn;
-
-            switch (rawColumns[i].length) {
-                case 2:
-                    newColumn = new Column(rawColumns[i][0].toString(), (Type) rawColumns[i][1]);
-                    break;
-                case 3:
-                    newColumn = new Column(rawColumns[i][0].toString(), (Type) rawColumns[i][1], (boolean) rawColumns[i][2]);
-                    break;
-                default:
-                    // how did you even get there
-                    throw new IllegalArgumentException("You broke the system somehow...");
-            }
-
-            processedColumns.add(newColumn);
-
+        if (canAddDefaultId) {
+            Column idColumn = new Column("id", Column.Type.INT);
+            this.columns.add(0, idColumn);
         }
 
-        return processedColumns;
-    }
-
-    public String getTableName() {
-        return this.tableName;
     }
 
     public String getTableCreationScript() {
@@ -139,5 +104,9 @@ public class Table {
         return sb.toString();
 
     }
+
+    public abstract String getTableName();
+
+    protected abstract Column[] getColumns();
 
 }
