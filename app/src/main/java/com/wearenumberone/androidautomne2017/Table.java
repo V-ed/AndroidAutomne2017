@@ -11,7 +11,7 @@ import java.util.Arrays;
  * Created by V-ed on 2017-12-08.
  */
 
-public abstract class Table implements Serializable {
+public abstract class Table<T> implements Serializable {
 
     protected static class Column {
         protected enum Type {
@@ -37,14 +37,22 @@ public abstract class Table implements Serializable {
         Type type;
         boolean notNull;
 
-        public Column(String columnName, Type type, boolean notNull) {
+        String params;
+
+        public Column(String columnName, Type type, boolean notNull, String params) {
             this.name = columnName;
             this.type = type;
             this.notNull = notNull;
+            this.params = params;
         }
-
+        public Column(String columnName, Type type, String params) {
+            this(columnName, type, true, params);
+        }
+        public Column(String columnName, Type type, boolean notNull) {
+            this(columnName, type, notNull, null);
+        }
         public Column(String columnName, Type type) {
-            this(columnName, type, true);
+            this(columnName, type, null);
         }
     }
 
@@ -52,12 +60,8 @@ public abstract class Table implements Serializable {
 
     private VSQLiteDatabase db;
 
-    protected Table(VSQLiteDatabase db) {
-
-        this.db = db;
-
+    protected Table() {
         this.initializeTable(this.getRawColumns());
-
     }
 
     private void initializeTable(Column... columns) {
@@ -74,10 +78,14 @@ public abstract class Table implements Serializable {
         }
 
         if (canAddDefaultId) {
-            Column idColumn = new Column("id", Column.Type.INT);
+            Column idColumn = new Column("id", Column.Type.INT, false, "PRIMARY KEY AUTOINCREMENT");
             this.columns.add(0, idColumn);
         }
 
+    }
+
+    protected void setDatabase(VSQLiteDatabase db) {
+        this.db = db;
     }
 
     protected VSQLiteDatabase getDatabase() {
@@ -100,7 +108,7 @@ public abstract class Table implements Serializable {
             columnNames.add(column.name);
         }
 
-        return (String[]) columnNames.toArray();
+        return columnNames.toArray(new String[0]);
 
     }
 
@@ -122,6 +130,11 @@ public abstract class Table implements Serializable {
             if (column.notNull)
                 sb.append(" NOT NULL");
 
+            if(column.params != null){
+                sb.append(" ");
+                sb.append(column.params);
+            }
+
             sb.append(", ");
 
         }
@@ -134,25 +147,33 @@ public abstract class Table implements Serializable {
 
     }
 
-    protected long addObject(Object... values) {
+    public void insertEntity(T entity) {
 
-        if (columns.size() != values.length)
+        Object[] values = this.convertEntity(entity);
+
+        this.addObject(values);
+
+    }
+
+    private long addObject(Object... values) {
+
+        if (columns.size() - 1 != values.length)
             throw new IllegalArgumentException("The number of values entered to add an object in the class "
                     + this.getClass().getSimpleName()
                     + " does not equals to the number of columns (there should be "
-                    + columns.size()
+                    + (columns.size() - 1)
                     + " values passed as parameter).");
 
         ContentValues content = new ContentValues();
 
-        for (int i = 0; i < columns.size(); i++) {
+        for (int i = 0; i < values.length; i++) {
 
             Object value = values[i];
 
             if (value instanceof String)
-                content.put(columns.get(i).name, (String) values[i]);
+                content.put(columns.get(i + 1).name, (String) values[i]);
             else if (value instanceof Integer)
-                content.put(columns.get(i).name, (Integer) values[i]);
+                content.put(columns.get(i + 1).name, (Integer) values[i]);
 
         }
 
@@ -160,9 +181,12 @@ public abstract class Table implements Serializable {
 
     }
 
-    protected <E> ArrayList<E> queryAll() throws Exception {
+    public ArrayList<T> queryAll() throws Exception {
 
         Cursor c = db.queryAll(this);
+
+        if(c == null)
+            return null;
 
         if (c.getColumnCount() != getColumns().size())
             throw new Exception("Query did not return expected column count. In theory, this exception should never occur; praise some dark wizard if you get it.");
@@ -175,6 +199,8 @@ public abstract class Table implements Serializable {
 
     protected abstract Column[] getRawColumns();
 
-    protected abstract <E> ArrayList<E> convertResultSet(Cursor c);
+    protected abstract ArrayList<T> convertResultSet(Cursor c);
+
+    public abstract Object[] convertEntity(T entity);
 
 }

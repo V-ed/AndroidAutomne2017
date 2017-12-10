@@ -10,9 +10,9 @@ public class User implements Serializable {
 
     private String email;
     private String password;
-    private int telephone;
+    private String telephone;
 
-    public User(String email, String password, int telephone) {
+    public User(String email, String password, String telephone) {
         this.email = email;
         this.password = password;
         this.telephone = telephone;
@@ -34,11 +34,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

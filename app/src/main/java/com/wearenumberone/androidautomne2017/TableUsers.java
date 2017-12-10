@@ -8,15 +8,17 @@ import java.util.ArrayList;
  * Created by V-ed on 2017-12-09.
  */
 
-public class TableUsers extends Table {
+public class TableUsers extends Table<User> {
 
-    public TableUsers(VSQLiteDatabase db) {
-        super(db);
+    public static final String TABLE_NAME = "users";
+
+    public TableUsers() {
+        super();
     }
 
     @Override
     public String getName() {
-        return "users";
+        return TABLE_NAME;
     }
 
     @Override
@@ -32,7 +34,25 @@ public class TableUsers extends Table {
 
     }
 
-    public void newUser(User user) {
+    @Override
+    protected ArrayList<User> convertResultSet(Cursor c) {
+
+        ArrayList<User> listUsers = new ArrayList<>();
+        while (c.moveToNext()) {
+
+            User user = new User(c.getString(1), c.getString(2), c.getString(3));
+
+            listUsers.add(user);
+
+        }
+        c.close();
+
+        return listUsers;
+
+    }
+
+    @Override
+    public Object[] convertEntity(User user) {
 
         Object[] values = {
                 user.getEmail(),
@@ -40,24 +60,7 @@ public class TableUsers extends Table {
                 user.getTelephone()
         };
 
-        this.addObject(values);
-
-    }
-
-    @Override
-    protected ArrayList<User> convertResultSet(Cursor c) {
-
-        ArrayList<User> listUsers = new ArrayList<>();
-        while (c.moveToNext()) {
-
-            User fanClub = new User(c.getString(1), c.getString(2), c.getInt(3));
-
-            listUsers.add(fanClub);
-
-        }
-        c.close();
-
-        return listUsers;
+        return values;
 
     }
 
