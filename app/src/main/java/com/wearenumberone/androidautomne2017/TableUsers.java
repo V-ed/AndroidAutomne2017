@@ -1,5 +1,9 @@
 package com.wearenumberone.androidautomne2017;
 
+import android.database.Cursor;
+
+import java.util.ArrayList;
+
 /**
  * Created by V-ed on 2017-12-09.
  */
@@ -11,7 +15,7 @@ public class TableUsers extends Table {
     }
 
     @Override
-    public String getTableName() {
+    public String getName() {
         return "users";
     }
 
@@ -25,6 +29,35 @@ public class TableUsers extends Table {
         };
 
         return columns;
+
+    }
+
+    public void newUser(User user) {
+
+        Object[] values = {
+                user.getEmail(),
+                user.getPassword(),
+                user.getTelephone()
+        };
+
+        this.addObject(values);
+
+    }
+
+    @Override
+    protected ArrayList<User> convertResultSet(Cursor c) {
+
+        ArrayList<User> listUsers = new ArrayList<>();
+        while (c.moveToNext()) {
+
+            User fanClub = new User(c.getString(1), c.getString(2), c.getInt(3));
+
+            listUsers.add(fanClub);
+
+        }
+        c.close();
+
+        return listUsers;
 
     }
 

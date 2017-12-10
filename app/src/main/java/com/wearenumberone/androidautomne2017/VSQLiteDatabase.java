@@ -2,6 +2,7 @@ package com.wearenumberone.androidautomne2017;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -35,7 +36,7 @@ public class VSQLiteDatabase {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             for (Table table : this.tables)
-                db.execSQL("DROP TABLE " + table.getTableName());
+                db.execSQL("DROP TABLE " + table.getName());
 
             onCreate(db);
         }
@@ -49,7 +50,7 @@ public class VSQLiteDatabase {
     private SQLiteDatabase db;
     private VSQLiteDatabaseHelper dbHelper;
 
-    public VSQLiteDatabase(Context context, ArrayList<Table> tables){
+    public VSQLiteDatabase(Context context, ArrayList<Table> tables) {
 
         this.tables = tables;
 
@@ -61,8 +62,23 @@ public class VSQLiteDatabase {
         this(context, new ArrayList<>(Arrays.asList(tables)));
     }
 
-    protected long insertInto(Table table, ContentValues content) {
-        return db.insert(table.getTableName(), null, content);
+    public long insertInto(Table table, ContentValues content) {
+        return db.insert(table.getName(), null, content);
+    }
+
+    public Cursor queryAll(Table table) {
+
+        String[] columns = table.getColumnNames();
+
+        Cursor c = db.query(table.getName(), columns,
+                null, null, null, null, columns[0]);
+
+        if (c.getCount() == 0) {
+            c.close();
+            return null;
+        }
+
+        return c;
     }
 
 }

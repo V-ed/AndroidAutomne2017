@@ -1,6 +1,7 @@
 package com.wearenumberone.androidautomne2017;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ import java.util.Arrays;
 public abstract class Table implements Serializable {
 
     protected static class Column {
-
         protected enum Type {
             INT("INTEGER"),
             TEXT("TEXT");
@@ -80,15 +80,28 @@ public abstract class Table implements Serializable {
 
     }
 
-    protected VSQLiteDatabase getDatabase(){
+    protected VSQLiteDatabase getDatabase() {
         return this.db;
     }
-    protected VSQLiteDatabase getDb(){
+
+    protected VSQLiteDatabase getDb() {
         return this.getDatabase();
     }
 
-    public ArrayList<Column> getColumns(){
+    public ArrayList<Column> getColumns() {
         return this.columns;
+    }
+
+    public String[] getColumnNames() {
+
+        ArrayList<String> columnNames = new ArrayList<>();
+
+        for (Column column : getColumns()) {
+            columnNames.add(column.name);
+        }
+
+        return (String[]) columnNames.toArray();
+
     }
 
     public String getTableCreationScript() {
@@ -97,7 +110,7 @@ public abstract class Table implements Serializable {
 
         sb.append("CREATE TABLE");
         sb.append(" ");
-        sb.append(this.getTableName());
+        sb.append(this.getName());
         sb.append("(");
 
         for (Column column : columns) {
@@ -147,8 +160,21 @@ public abstract class Table implements Serializable {
 
     }
 
-    public abstract String getTableName();
+    protected <E> ArrayList<E> queryAll() throws Exception {
+
+        Cursor c = db.queryAll(this);
+
+        if (c.getColumnCount() != getColumns().size())
+            throw new Exception("Query did not return expected column count. In theory, this exception should never occur; praise some dark wizard if you get it.");
+
+        return this.convertResultSet(c);
+
+    }
+
+    public abstract String getName();
 
     protected abstract Column[] getRawColumns();
+
+    protected abstract <E> ArrayList<E> convertResultSet(Cursor c);
 
 }
