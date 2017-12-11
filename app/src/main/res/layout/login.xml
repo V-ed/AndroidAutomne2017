@@ -6,7 +6,7 @@
     tools:context="com.wearenumberone.androidautomne2017.MainActivity">
 
     <EditText
-        android:id="@+id/idEmail"
+        android:id="@+id/idUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/idEmail"
+        android:layout_below="@+id/idUserName"
         android:layout_marginTop="10dp"
         android:hint="@string/text_password"/>
 

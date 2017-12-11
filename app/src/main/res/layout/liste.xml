@@ -1,39 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="Arial"
+            android:text="User : "
+            android:textColor="#FF00FF"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/idTextTechnicien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="Arial"
+            android:text=" Robert"
+            android:textColor="#0000FF"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/idImage"
-        android:layout_width="151dp"
-        android:layout_height="144dp"
-        android:src="@drawable/nouveau"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/nouveau" />
 
     <TextView
         android:id="@+id/idType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/idNom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/idPrenom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/idHeure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 
-
-</LinearLayout>
+</RelativeLayout>
