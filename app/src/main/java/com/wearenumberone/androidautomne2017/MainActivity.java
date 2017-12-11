@@ -1,6 +1,7 @@
 package com.wearenumberone.androidautomne2017;
 
 import android.content.Intent;
+
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,14 +19,19 @@ public class MainActivity extends AppCompatActivity {
     Button btnConnexion;
     VSQLiteDatabase db;
 
+
+    Button buttonLogin;
+    EditText editTextUsername;
+    EditText editTextPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        txtUserName =  findViewById(R.id.idUserName);
+        txtUserName = findViewById(R.id.idUserName);
         txtPassword = findViewById(R.id.idPassword);
-        btnConnexion =  findViewById(R.id.idValider);
+        btnConnexion = findViewById(R.id.idValider);
 
         Table[] tables = {
                 new TableUsers(),
@@ -54,39 +60,55 @@ public class MainActivity extends AppCompatActivity {
                             technicien = t;
                         }
                     }
-                }
-                catch(Exception e){
+                } catch (Exception e) {
 
                 }
-                if(technicien != null){
+                if (technicien != null) {
                     Intent intent = new Intent(MainActivity.this, ListeClient.class);
                     //intent.putExtra("technicien", technicien);
                     startActivity(intent);
-                }
-                else{
+                } else {
                     Toast.makeText(MainActivity.this, "User name and password invalid", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+
+        buttonLogin = findViewById(R.id.idButtonLogin);
+
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                editTextUsername = findViewById(R.id.idEditTextUsername);
+                editTextPassword = findViewById(R.id.idEditTextPassword);
+                if (editTextUsername.getText().toString().equalsIgnoreCase("toto") && editTextPassword.getText().toString().equalsIgnoreCase("toto")) {
+                    Intent intent = new Intent(MainActivity.this, Planification.class);
+                    startActivity(intent);
+                }
+
             }
-
-       /* try{
-
-            TableTechs table = (TableTechs) db.table(TableTechs.TABLE_NAME);
-
-            Technicien tech = table.query(QueryElem.WHERE(2)).get(0);
-
-            test.setText("Hello, " + tech.getEmail() + "!");
-
-        }
-        catch (Exception e){
-
-            test.setText(":(");
-
-            e.printStackTrace();
-
-        } */
+        });
 
     }
+
+   /* try{
+
+        TableTechs table = (TableTechs) db.table(TableTechs.TABLE_NAME);
+
+        Technicien tech = table.query(QueryElem.WHERE(2)).get(0);
+
+        test.setText("Hello, " + tech.getEmail() + "!");
+
+    }
+    catch (Exception e){
+
+        test.setText(":(");
+
+        e.printStackTrace();
+
+    } */
+
+}
 
 
