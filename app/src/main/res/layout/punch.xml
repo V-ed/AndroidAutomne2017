@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <ImageButton
+        android:id="@+id/idPhoto"
+        android:layout_width="143dp"
+        android:layout_height="103dp"
+        android:background="@drawable/photo"
+        />
+
+    <Button
+        android:id="@+id/idParcourir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Parcourir photo"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description du travail"/>
+
+    <Button
+        android:id="@+id/idPunch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Punch Out"
+        />
+
+</LinearLayout>
