@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.wearenumberone.androidautomne2017.MainActivity">
+
+    <EditText
+        android:id="@+id/idUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:hint="@string/text_email"/>
+
+    <EditText
+        android:id="@+id/idPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/idUserName"
+        android:layout_marginTop="10dp"
+        android:hint="@string/text_password"/>
+
+    <Button
+        android:id="@+id/idLangue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/idPassword"
+        android:layout_below="@+id/idPassword"
+        android:text="@string/text_language"/>
+
+    <Button
+        android:id="@+id/idAnnuler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/idLangue"
+        android:layout_alignTop="@+id/idLangue"
+        android:text="@string/text_cancel" />
+
+
+    <Button
+        android:id="@+id/idValider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/idLangue"
+        android:text="@string/text_validate"
+        />
+
+    <ImageButton
+        android:id="@+id/idFacebook"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fb"
+        android:layout_above="@+id/idValider"
+        android:layout_toLeftOf="@+id/idAnnuler"
+        android:layout_below="@+id/idPassword" />
+
+    <ImageButton
+        android:id="@+id/idGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/google"
+        android:layout_toLeftOf="@+id/idFacebook"
+        android:layout_alignTop="@+id/idFacebook"
+        android:layout_above="@+id/idValider"
+        />
+
+</RelativeLayout>

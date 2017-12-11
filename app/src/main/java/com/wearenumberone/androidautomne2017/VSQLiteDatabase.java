@@ -104,6 +104,56 @@ public class VSQLiteDatabase {
         }
 
         return c;
+
+    }
+
+    public Cursor query(Table table, QueryElem... queryElems){
+
+        String[] columns = table.getColumnNames();
+
+        String[] select = columns;
+        String where_col = null;
+        String[] where_val = null;
+        String group = null;
+        String order = columns[0];
+
+        for(int i = 0; i < queryElems.length; i++){
+
+            QueryElem queryElem = queryElems[i];
+
+            switch (queryElem.getType()){
+                case SELECT:
+                    select = (String[])queryElem.getData();
+                    break;
+                case WHERE:
+                    Object[] wheres = (Object[])queryElem.getData();
+                    where_col = (String)wheres[0];
+                    where_val = (String[])wheres[1];
+                    break;
+                case GROUP:
+                    group = (String)queryElem.getData();
+                    break;
+                case ORDER:
+                    order = (String)queryElem.getData();
+                    break;
+                default:
+                    throw new IllegalArgumentException("QueryElem is not a valid element.");
+            }
+
+        }
+
+        this.openForRead();
+
+        Cursor c = db.query(table.getName(), select,
+                where_col, where_val, group, null, order);
+
+        if (c.getCount() == 0) {
+            c.close();
+            return null;
+        }
+
+        return c;
+
     }
 
     public Table table(String tableName) {
