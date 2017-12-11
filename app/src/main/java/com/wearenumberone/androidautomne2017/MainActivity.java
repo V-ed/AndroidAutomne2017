@@ -21,14 +21,17 @@ public class MainActivity extends AppCompatActivity {
 
         db.table(TableUsers.TABLE_NAME).insertEntity(new User("test@gmail.com", "lol", "234-567-7890"));
         db.table(TableTechs.TABLE_NAME).insertEntity(new Technicien("Bob", "bob@gmail.com", "password", "123-456-7890"));
+        db.table(TableTechs.TABLE_NAME).insertEntity(new Technicien("Robert", "robert@gmail.com", "password", "098-765-4321"));
 
         TextView test = findViewById(R.id.test);
 
         try{
 
-            User user = (User)db.table("users").queryAll().get(0);
+            TableTechs table = (TableTechs) db.table(TableTechs.TABLE_NAME);
 
-            test.setText("Hello, " + user.getEmail() + "!");
+            Technicien tech = table.query(QueryElem.WHERE(2)).get(0);
+
+            test.setText("Hello, " + tech.getEmail() + "!");
 
         }
         catch (Exception e){

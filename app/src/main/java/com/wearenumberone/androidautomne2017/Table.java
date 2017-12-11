@@ -45,12 +45,15 @@ public abstract class Table<T> implements Serializable {
             this.notNull = notNull;
             this.params = params;
         }
+
         public Column(String columnName, Type type, String params) {
             this(columnName, type, true, params);
         }
+
         public Column(String columnName, Type type, boolean notNull) {
             this(columnName, type, notNull, null);
         }
+
         public Column(String columnName, Type type) {
             this(columnName, type, null);
         }
@@ -130,7 +133,7 @@ public abstract class Table<T> implements Serializable {
             if (column.notNull)
                 sb.append(" NOT NULL");
 
-            if(column.params != null){
+            if (column.params != null) {
                 sb.append(" ");
                 sb.append(column.params);
             }
@@ -185,7 +188,21 @@ public abstract class Table<T> implements Serializable {
 
         Cursor c = db.queryAll(this);
 
-        if(c == null)
+        if (c == null)
+            return null;
+
+        if (c.getColumnCount() != getColumns().size())
+            throw new Exception("Query did not return expected column count. In theory, this exception should never occur; praise some dark wizard if you get it.");
+
+        return this.convertResultSet(c);
+
+    }
+
+    public ArrayList<T> query(QueryElem... queryElements) throws Exception {
+
+        Cursor c = db.query(this, queryElements);
+
+        if (c == null)
             return null;
 
         if (c.getColumnCount() != getColumns().size())
