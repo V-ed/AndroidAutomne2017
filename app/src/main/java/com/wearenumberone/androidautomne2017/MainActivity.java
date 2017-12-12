@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     String password = txtPassword.getText().toString();
                     for (int i = 0; i < liste.size(); i++) {
                         Technicien t = liste.get(i);
-                        if (t.getName().equalsIgnoreCase(userName) && t.getPassword().equalsIgnoreCase(password)) {
+                        if (t.getName().equalsIgnoreCase(userName) && t.getPassword().equals(password)) {
                             technicien = t;
                         }
                     }

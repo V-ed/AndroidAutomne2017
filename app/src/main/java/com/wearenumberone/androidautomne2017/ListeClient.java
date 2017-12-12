@@ -16,7 +16,7 @@ public class ListeClient extends AppCompatActivity {
         setContentView(R.layout.listejournal);
         TextView txtTechnicien = (TextView) findViewById(R.id.idTextTechnicien);
         Intent intent = getIntent();
-        Technicien technicien = (Technicien) intent.getSerializableExtra("fanclub");
+        Technicien technicien = (Technicien) intent.getSerializableExtra("technicien");
         txtTechnicien.setText(technicien.getEmail() + " " + technicien.getName());
     }
 }
