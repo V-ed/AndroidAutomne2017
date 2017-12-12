@@ -11,12 +11,12 @@ import java.util.Date;
 public class Intervention {
 
     private int img;
-    private String tabType[] = {"Nouveau Service", "Modification de Service", "Dépannage"};
+    private String tabType;
     private String nom;
     private String prenom;
-    private Date heureDebut;
+    private String heureDebut;
 
-    public Intervention(int img, String[] tabType, String nom, String prenom, Date heureDebut) {
+    public Intervention(int img, String tabType, String nom, String prenom, String heureDebut) {
         this.img = img;
         this.tabType = tabType;
         this.nom = nom;
@@ -28,7 +28,7 @@ public class Intervention {
         return img;
     }
 
-    public String[] getTabType() {
+    public String getTabType() {
         return tabType;
     }
 
@@ -40,7 +40,7 @@ public class Intervention {
         return prenom;
     }
 
-    public Date getHeureDebut() {
+    public String getHeureDebut() {
         return heureDebut;
     }
 }
