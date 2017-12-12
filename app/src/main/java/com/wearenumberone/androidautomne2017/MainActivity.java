@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         Table[] tables = {
                 new TableUsers(),
-                new TableTechs()
+                new TableTechs(),
+                new TableInterventions()
         };
 
         db = new VSQLiteDatabase(this, tables);
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         db.table(TableUsers.TABLE_NAME).insertEntity(new User("test@gmail.com", "lol", "234-567-7890"));
         db.table(TableTechs.TABLE_NAME).insertEntity(new Technicien("Bob", "bob@gmail.com", "password", "123-456-7890"));
         db.table(TableTechs.TABLE_NAME).insertEntity(new Technicien("Robert", "robert@gmail.com", "password", "098-765-4321"));
-
+        db.table(TableInterventions.TABLE_NAME).insertEntity((new Intervention(1, "Dépannage", "Attacher mes souliers", "Robert", "1970-01-01")));
 
         btnConnexion.setOnClickListener(new View.OnClickListener() {
             @Override

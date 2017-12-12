@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class TableInterventions extends Table<Intervention> {
 
-    public static final String TABLE_NAME = "users";
+    public static final String TABLE_NAME = "interventions";
 
     public TableInterventions() {
         super();
