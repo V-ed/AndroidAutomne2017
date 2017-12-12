@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     EditText txtUserName;
     EditText txtPassword;
-    Button btnConnexion;
+    Button idButtonLogin;
     VSQLiteDatabase db;
 
 
@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        txtUserName = findViewById(R.id.idUserName);
-        txtPassword = findViewById(R.id.idPassword);
-        btnConnexion = findViewById(R.id.idValider);
+        txtUserName = findViewById(R.id.idEditTextUsername);
+        txtPassword = findViewById(R.id.idEditTextPassword);
+        idButtonLogin = findViewById(R.id.idButtonLogin);
 
         Table[] tables = {
                 new TableUsers(),
@@ -44,12 +44,14 @@ public class MainActivity extends AppCompatActivity {
         db.table(TableTechs.TABLE_NAME).insertEntity(new Technicien("Bob", "bob@gmail.com", "password", "123-456-7890"));
         db.table(TableTechs.TABLE_NAME).insertEntity(new Technicien("Robert", "robert@gmail.com", "password", "098-765-4321"));
 
-
-        btnConnexion.setOnClickListener(new View.OnClickListener() {
+        idButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TableTechs table = (TableTechs) db.table(TableTechs.TABLE_NAME);
                 Technicien technicien = null;
+
+                Toast.makeText(MainActivity.this, "test", Toast.LENGTH_LONG).show();
+
                 try {
                     ArrayList<Technicien> liste = table.queryAll();
                     String userName = txtUserName.getText().toString();

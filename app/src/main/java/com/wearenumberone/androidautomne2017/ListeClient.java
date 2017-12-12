@@ -17,6 +17,6 @@ public class ListeClient extends AppCompatActivity {
         TextView txtTechnicien = (TextView) findViewById(R.id.idTextTechnicien);
         Intent intent = getIntent();
         Technicien technicien = (Technicien) intent.getSerializableExtra("fanclub");
-        txtTechnicien.setText(technicien.getEmail() + " " + technicien.getName());
+        //txtTechnicien.setText(technicien.getEmail() + " " + technicien.getName());
     }
 }
