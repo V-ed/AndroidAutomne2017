@@ -47,13 +47,13 @@ public class MainActivity extends AppCompatActivity {
         idButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TableTechs table = (TableTechs) db.table(TableTechs.TABLE_NAME);
+                TableTechs tableTech = (TableTechs) db.table(TableTechs.TABLE_NAME);
                 Technicien technicien = null;
-
-                Toast.makeText(MainActivity.this, "test", Toast.LENGTH_LONG).show();
+                TableUsers tableUser = (TableUsers) db.table(TableUsers.TABLE_NAME);
+                User user = null;
 
                 try {
-                    ArrayList<Technicien> liste = table.queryAll();
+                    ArrayList<Technicien> liste = tableTech.queryAll();
                     String userName = txtUserName.getText().toString();
                     String password = txtPassword.getText().toString();
                     for (int i = 0; i < liste.size(); i++) {
@@ -65,12 +65,33 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
 
                 }
+
+                try {
+                    ArrayList<User> liste = tableUser.queryAll();
+                    String userName = txtUserName.getText().toString();
+                    String password = txtPassword.getText().toString();
+                    for (int i = 0; i < liste.size(); i++) {
+                        User u = liste.get(i);
+                        if (u.getEmail().equalsIgnoreCase(userName) && u.getPassword().equalsIgnoreCase(password)) {
+                            user = u;
+                        }
+                    }
+                } catch (Exception e) {
+
+                }
+
                 if (technicien != null) {
                     Intent intent = new Intent(MainActivity.this, ListeClient.class);
                     intent.putExtra("technicien", technicien);
                     startActivity(intent);
+
+                } else if (user != null) {
+                    Intent intent = new Intent(MainActivity.this, ListeClient.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
+
                 } else {
-                    Toast.makeText(MainActivity.this, "User name and password invalid", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Username and/or password invalid", Toast.LENGTH_LONG).show();
                 }
             }
         });

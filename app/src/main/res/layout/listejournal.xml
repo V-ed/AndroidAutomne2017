@@ -23,11 +23,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="Arial"
-            android:text=" Robert"
+            android:text=" "
             android:textColor="#0000FF"
             android:textSize="20dp" />
 
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/idButtonItemPlanification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Planification"/>
+
+    <Button
+        android:id="@+id/idButtonPunchOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Punch out"/>
 
     <ListView
         android:id="@+id/idListeJournal"
