@@ -5,18 +5,33 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="91dp"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/nouveau" />
+
+        <Button
+            android:id="@+id/buttonIntervention1"
+            android:layout_width="303dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Punch In pour cette intervention" />
+
+    </LinearLayout>
+
     <RadioGroup
         android:id="@+id/radioGroupTypes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </RadioGroup>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="91dp"
-        android:layout_height="90dp"
-        app:srcCompat="@drawable/nouveau" />
 
     <TextView
         android:id="@+id/textView7"
@@ -42,11 +57,25 @@
         android:layout_height="wrap_content"
         android:text="13h00" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="72dp"
-        android:layout_height="73dp"
-        app:srcCompat="@drawable/depannage" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="72dp"
+            android:layout_height="73dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/depannage" />
+
+        <Button
+            android:id="@+id/buttonIntervention2"
+            android:layout_width="332dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Punch In pour cette intervention" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView8"
@@ -72,11 +101,25 @@
         android:layout_height="wrap_content"
         android:text="14h00" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="85dp"
-        android:layout_height="70dp"
-        app:srcCompat="@drawable/modification" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="85dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/modification" />
+
+        <Button
+            android:id="@+id/buttonIntervention3"
+            android:layout_width="331dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Punch In pour cette intervention" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView9"
@@ -101,11 +144,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="8h00" />
-
-    <Button
-        android:id="@+id/buttonInterventionPunchOut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Punch Out" />
 
 </LinearLayout>

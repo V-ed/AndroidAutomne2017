@@ -19,14 +19,15 @@ public class PunchOut extends AppCompatActivity {
     TextView textViewIntervention;
     VSQLiteDatabase db;
 
-    public PunchOut(VSQLiteDatabase db) {
+/*   public PunchOut(VSQLiteDatabase db) {
         super();
         this.db = db;
-    }
+    }*/
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.punchout);
         punchOut = findViewById(R.id.buttonPunchOut);
@@ -40,7 +41,7 @@ public class PunchOut extends AppCompatActivity {
         punchOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //Delete intervention.
             }
         });
 

@@ -20,9 +20,6 @@ public class MainActivity extends AppCompatActivity {
     VSQLiteDatabase db;
 
 
-    Button buttonLogin;
-    EditText editTextUsername;
-    EditText editTextPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
