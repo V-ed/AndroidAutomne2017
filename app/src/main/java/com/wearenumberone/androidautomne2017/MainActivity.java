@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     EditText txtUserName;
     EditText txtPassword;
-    Button btnConnexion;
+    Button idButtonLogin;
     VSQLiteDatabase db;
 
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.login);
         txtUserName = findViewById(R.id.idEditTextUsername);
         txtPassword = findViewById(R.id.idEditTextPassword);
-        btnConnexion = findViewById(R.id.idButtonLogin);
+        idButtonLogin = findViewById(R.id.idButtonLogin);
 
         Table[] tables = {
                 new TableUsers(),
@@ -44,12 +44,14 @@ public class MainActivity extends AppCompatActivity {
         db.table(TableTechs.TABLE_NAME).insertEntity(new Technicien("Bob", "bob@gmail.com", "password", "123-456-7890"));
         db.table(TableTechs.TABLE_NAME).insertEntity(new Technicien("Robert", "robert@gmail.com", "password", "098-765-4321"));
 
-
-        btnConnexion.setOnClickListener(new View.OnClickListener() {
+        idButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TableTechs table = (TableTechs) db.table(TableTechs.TABLE_NAME);
                 Technicien technicien = null;
+
+                Toast.makeText(MainActivity.this, "test", Toast.LENGTH_LONG).show();
+
                 try {
                     ArrayList<Technicien> liste = table.queryAll();
                     String userName = txtUserName.getText().toString();
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (technicien != null) {
                     Intent intent = new Intent(MainActivity.this, ListeClient.class);
-                    //intent.putExtra("technicien", technicien);
+                    intent.putExtra("technicien", technicien);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "User name and password invalid", Toast.LENGTH_LONG).show();
@@ -74,40 +76,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        buttonLogin = findViewById(R.id.idButtonLogin);
-
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                editTextUsername = findViewById(R.id.idEditTextUsername);
-                editTextPassword = findViewById(R.id.idEditTextPassword);
-                if (editTextUsername.getText().toString().equalsIgnoreCase("toto") && editTextPassword.getText().toString().equalsIgnoreCase("toto")) {
-                    Intent intent = new Intent(MainActivity.this, Planification.class);
-                    startActivity(intent);
-                }
-
-            }
-        });
-
-    }
-
-   /* try{
-
-        TableTechs table = (TableTechs) db.table(TableTechs.TABLE_NAME);
-
-        Technicien tech = table.query(QueryElem.WHERE(2)).get(0);
-
-        test.setText("Hello, " + tech.getEmail() + "!");
+//        buttonLogin = findViewById(R.id.idButtonLogin);
+//
+//        buttonLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                editTextUsername = findViewById(R.id.idEditTextUsername);
+//                editTextPassword = findViewById(R.id.idEditTextPassword);
+//                if (editTextUsername.getText().toString().equalsIgnoreCase("toto") && editTextPassword.getText().toString().equalsIgnoreCase("toto")) {
+//                    Intent intent = new Intent(MainActivity.this, Planification.class);
+//                    startActivity(intent);
+//                }
+//
+//            }
+//        });
 
     }
-    catch (Exception e){
-
-        test.setText(":(");
-
-        e.printStackTrace();
-
-    } */
 
 }
 
