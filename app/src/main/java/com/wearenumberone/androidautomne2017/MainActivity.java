@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        txtUserName = findViewById(R.id.idUserName);
-        txtPassword = findViewById(R.id.idPassword);
-        btnConnexion = findViewById(R.id.idValider);
+        txtUserName = findViewById(R.id.idEditTextUsername);
+        txtPassword = findViewById(R.id.idEditTextPassword);
+        btnConnexion = findViewById(R.id.idButtonLogin);
 
         Table[] tables = {
                 new TableUsers(),
