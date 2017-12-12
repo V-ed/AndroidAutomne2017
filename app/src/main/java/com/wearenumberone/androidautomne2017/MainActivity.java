@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (technicien != null) {
                     Intent intent = new Intent(MainActivity.this, ListeClient.class);
-                    //intent.putExtra("technicien", technicien);
+                    intent.putExtra("technicien", technicien);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "User name and password invalid", Toast.LENGTH_LONG).show();
@@ -74,21 +74,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        buttonLogin = findViewById(R.id.idButtonLogin);
-
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                editTextUsername = findViewById(R.id.idEditTextUsername);
-                editTextPassword = findViewById(R.id.idEditTextPassword);
-                if (editTextUsername.getText().toString().equalsIgnoreCase("toto") && editTextPassword.getText().toString().equalsIgnoreCase("toto")) {
-                    Intent intent = new Intent(MainActivity.this, Planification.class);
-                    startActivity(intent);
-                }
-
-            }
-        });
+//        buttonLogin = findViewById(R.id.idButtonLogin);
+//
+//        buttonLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                editTextUsername = findViewById(R.id.idEditTextUsername);
+//                editTextPassword = findViewById(R.id.idEditTextPassword);
+//                if (editTextUsername.getText().toString().equalsIgnoreCase("toto") && editTextPassword.getText().toString().equalsIgnoreCase("toto")) {
+//                    Intent intent = new Intent(MainActivity.this, Planification.class);
+//                    startActivity(intent);
+//                }
+//
+//            }
+//        });
 
     }
 
