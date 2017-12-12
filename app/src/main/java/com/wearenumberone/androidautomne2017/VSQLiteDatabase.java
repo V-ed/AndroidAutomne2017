@@ -89,6 +89,16 @@ public class VSQLiteDatabase {
 
     }
 
+    public long updateObject(Table table, int id, ContentValues content){
+
+        this.openForWrite();
+        long returnValue = db.update(table.getName(), content, ((Table.Column)table.getColumns().get(0)).name + " = ?", new String[]{ String.valueOf(id) });
+        this.close();
+
+        return returnValue;
+
+    }
+
     public Cursor queryAll(Table table) {
 
         String[] columns = table.getColumnNames();

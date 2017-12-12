@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnConnexion;
     VSQLiteDatabase db;
 
-
     Button buttonLogin;
     EditText editTextUsername;
     EditText editTextPassword;

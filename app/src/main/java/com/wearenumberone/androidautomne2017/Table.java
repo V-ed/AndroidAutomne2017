@@ -167,6 +167,29 @@ public abstract class Table<T> implements Serializable {
                     + (columns.size() - 1)
                     + " values passed as parameter).");
 
+        ContentValues content = this.putInContent(values);
+
+        return db.insertInto(this, content);
+
+    }
+
+    private long editObject(int id, Object... values) {
+
+        if (columns.size() - 1 != values.length)
+            throw new IllegalArgumentException("The number of values entered to add an object in the class "
+                    + this.getClass().getSimpleName()
+                    + " does not equals to the number of columns (there should be "
+                    + (columns.size() - 1)
+                    + " values passed as parameter).");
+
+        ContentValues content = this.putInContent(values);
+
+        return db.updateObject(this, id, content);
+
+    }
+
+    private ContentValues putInContent(Object[] values){
+
         ContentValues content = new ContentValues();
 
         for (int i = 0; i < values.length; i++) {
@@ -180,7 +203,7 @@ public abstract class Table<T> implements Serializable {
 
         }
 
-        return db.insertInto(this, content);
+        return content;
 
     }
 
